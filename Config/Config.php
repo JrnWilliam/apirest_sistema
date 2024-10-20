@@ -1,5 +1,5 @@
 <?php
-  const BASE_URL = "http://localhost/sistema_credito/";
+  const BASE_URL = "http://apirest-ventas.ni/";
 
   const CONEXION = false;
   const DB_HOST = "localhost";
