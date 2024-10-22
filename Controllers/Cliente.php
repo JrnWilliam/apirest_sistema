@@ -6,14 +6,29 @@
             parent::__construct();
         }
 
-        public function Seleccionarcliente($idcliente)
+        public function SeleccionarCliente($idcliente)
         {
             echo "Controlador Cliente" . $idcliente;
         }
 
         public function RegistroClientes()
         {
-            echo "Registro de Clientes";
+            try
+            {
+                $metodo = $_SERVER['REQUEST_METHOD'];
+                if($metodo == "POST")
+                {
+                    echo "Se Realizo el Proceso Correctamente";
+                }
+                else
+                {
+                    echo "Error en La Solicitud";
+                }
+            }
+            catch(Exception $e)
+            {
+                echo "Error en el Proceso: ". $e->getMessage();
+            }
         }
 
         public function MostrarClientes()
