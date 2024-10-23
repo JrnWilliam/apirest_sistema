@@ -93,4 +93,30 @@
             return false;
         }
     }
+
+    function ValidarNumero(int $num)
+    {
+        $ereg = '/[0-9]+$/';
+        if(preg_match($ereg, $num))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function ValidarCorreo(string $correo)
+    {
+        $ereg = '/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,6}$/';
+        if(preg_match($ereg, $correo))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 ?>
