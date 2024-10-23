@@ -70,4 +70,14 @@
         
         return $string;
     }
+
+    function JSONRespuesta(array $arrData, int $codigo)
+    {
+        if(is_array($arrData))
+        {
+            header("HTTP/1.1 " . $codigo);
+            header("Content-Type: application/json");
+            echo json_encode($arrData,true);
+        }
+    }
 ?>
