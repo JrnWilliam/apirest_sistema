@@ -16,19 +16,26 @@
             try
             {
                 $metodo = $_SERVER['REQUEST_METHOD'];
+                $respuesta = [];
+
                 if($metodo == "POST")
                 {
-                    echo "Se Realizo el Proceso Correctamente";
+                    $respuesta = array('status' => true, 'msg' => 'Datos Guardados Correctamente' );
+                    $codigo = 200;
                 }
                 else
                 {
-                    echo "Error en La Solicitud";
+                    $respuesta = array('status' => false, 'msg' => 'Error en la Solicitud ' . $metodo);
+                    $codigo = 400;
                 }
+                JSONRespuesta($respuesta,$codigo);
+                die();
             }
             catch(Exception $e)
             {
                 echo "Error en el Proceso: ". $e->getMessage();
             }
+            die();
         }
 
         public function MostrarClientes()
