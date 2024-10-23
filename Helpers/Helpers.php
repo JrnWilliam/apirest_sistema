@@ -80,4 +80,17 @@
             echo json_encode($arrData,true);
         }
     }
+
+    function ValidarNombre(string $data)
+    {
+        $ereg = '/[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/';
+        if(preg_match($ereg, $data))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 ?>
