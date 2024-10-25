@@ -35,7 +35,7 @@
 
         $solicitud = $this->SeleccionarUnRegistro($sql,$parametros);
 
-        if(count($solicitud) > 0)
+        if(!empty($solicitud) > 0)
         {
           return false;
         }
