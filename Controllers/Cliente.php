@@ -64,10 +64,10 @@
                         die();
                     }
                     $identificacion = $_POST['identificacion'];
-                    $nombres = $_POST['nombres'];
-                    $apellidos = $_POST['apellidos'];
+                    $nombres = ucwords(strtolower($_POST['nombres']));
+                    $apellidos = ucwords(strtolower($_POST['apellidos']));
                     $telefono = $_POST['telefono'];
-                    $correo = $_POST['email'];
+                    $correo = strtolower($_POST['email']);
                     $direccion = $_POST['direccion'];
                     $nit = !empty($_POST['nit']) ? LimpiarCadena($_POST['nit']) : "";
                     $nfiscal = !empty($_POST['nombrefiscal']) ? LimpiarCadena($_POST['nombrefiscal']) : "";
