@@ -29,6 +29,9 @@
         $this->strNit = $nit;
         $this->strNomFiscal = $nombrefiscal;
         $this->strDirFiscal = $dirfiscal;
+
+        $sql = "SELECT identificacion,email FROM cliente WHERE (email = :email or identificacion = :ident) and status = :estado ";
+        $parametros = array(":email" => $this->strEmail, ":ident" =>$this->strIdentificación,":estado"=>1);
     }
   }
 ?>
