@@ -18,7 +18,7 @@
       parent::__construct();   
     }
 
-    public function AgregarCliente(string $identificacion,string $nombres, string $apellidos, int $telefono, string $email, string $direccion, string $nit, string $nombrefiscal, string $dirfiscal)
+    public function setCliente(string $identificacion,string $nombres, string $apellidos, int $telefono, string $email, string $direccion, string $nit, string $nombrefiscal, string $dirfiscal)
     {
         $this->strIdentificación = $identificacion;
         $this->strNombres = $nombres;
