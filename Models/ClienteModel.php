@@ -32,6 +32,8 @@
 
         $sql = "SELECT identificacion,email FROM cliente WHERE (email = :email or identificacion = :ident) and status = :estado ";
         $parametros = array(":email" => $this->strEmail, ":ident" =>$this->strIdentificación,":estado"=>1);
+
+        $solicitud = $this->SeleccionarUnRegistro($sql,$parametros);
     }
   }
 ?>
