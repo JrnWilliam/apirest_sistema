@@ -2,7 +2,7 @@
   class ClienteModel extends MySQL
   {
     private $intIdCliente;
-    private $strIdentificación;
+    private $strIdentificacion;
     private $strNombres;
     private $strApellidos;
     private $intTelefono;
@@ -20,7 +20,7 @@
 
     public function setCliente(string $identificacion,string $nombres, string $apellidos, int $telefono, string $email, string $direccion, string $nit, string $nombrefiscal, string $dirfiscal)
     {
-        $this->strIdentificación = $identificacion;
+        $this->strIdentificacion = $identificacion;
         $this->strNombres = $nombres;
         $this->strApellidos = $apellidos;
         $this->intTelefono = $telefono;
@@ -30,8 +30,8 @@
         $this->strNomFiscal = $nombrefiscal;
         $this->strDirFiscal = $dirfiscal;
 
-        $sql = "SELECT identificacion,email FROM cliente WHERE (email = :email or identificacion = :ident) and status = :estado ";
-        $parametros = array(":email" => $this->strEmail, ":ident" =>$this->strIdentificación,":estado"=>1);
+        $sql = "SELECT identificacion,email FROM cliente WHERE (email = :email or identificacion = :ident) and status = :estado";
+        $parametros = array(":email" => $this->strEmail, ":ident" =>$this->strIdentificacion,":estado"=>1);
 
         $solicitud = $this->SeleccionarUnRegistro($sql,$parametros);
 
@@ -43,7 +43,7 @@
         {
           $insertar = "INSERT INTO cliente(identificacion,nombres,apellidos,telefono,email,direccion,nit,nombrefiscal,direccionfiscal) VALUES (:ident,:nom,:ape,:tel,:correo,:dir,:nit,:nomfiscal,:dirfiscal)";
 
-          $param = array(":ident" => $this->strIdentificación, ":nom" => $this->strNombres, ":ape" => $this->strApellidos, ":tel" => $this->intTelefono, ":correo" => $this->strEmail, ":dir" => $this->strDireccion, ":nit" => $this->strNit,":nomfiscal" => $this->strNomFiscal, ":dirfiscal" => $this->strDirFiscal);
+          $param = array(":ident" => $this->strIdentificacion, ":nom" => $this->strNombres, ":ape" => $this->strApellidos, ":tel" => $this->intTelefono, ":correo" => $this->strEmail, ":dir" => $this->strDireccion, ":nit" => $this->strNit,":nomfiscal" => $this->strNomFiscal, ":dirfiscal" => $this->strDirFiscal);
 
           $solicitudinsert = $this->InsertarRegistro($insertar,$param);
           return $solicitudinsert;
