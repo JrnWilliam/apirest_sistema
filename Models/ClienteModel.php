@@ -34,6 +34,20 @@
         $parametros = array(":email" => $this->strEmail, ":ident" =>$this->strIdentificación,":estado"=>1);
 
         $solicitud = $this->SeleccionarUnRegistro($sql,$parametros);
+
+        if(count($solicitud) > 0)
+        {
+          return false;
+        }
+        else
+        {
+          $insertar = "INSERT INTO cliente(identificacion,nombres,apellidos,telefono,email,direccion,nit,nombrefiscal,direccionfiscal) VALUES (:ident,:nom,:ape,:tel,:correo,:dir,:nit,:nomfiscal,:dirfiscal)";
+
+          $param = array(":ident" => $this->strIdentificación, ":nom" => $this->strNombres, ":ape" => $this->strApellidos, ":tel" => $this->intTelefono, ":correo" => $this->strEmail, ":dir" => $this->strDireccion, ":nit" => $this->strNit,":nomfiscal" => $this->strNomFiscal, ":dirfiscal" => $this->strDirFiscal);
+
+          $solicitudinsert = $this->InsertarRegistro($insertar,$param);
+          return $solicitudinsert;
+        }
     }
   }
 ?>
