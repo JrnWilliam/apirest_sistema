@@ -72,6 +72,8 @@
                     $nit = !empty($_POST['nit']) ? LimpiarCadena($_POST['nit']) : "";
                     $nfiscal = !empty($_POST['nombrefiscal']) ? LimpiarCadena($_POST['nombrefiscal']) : "";
                     $dirfiscal = !empty($_POST['direccionfiscal']) ? LimpiarCadena($_POST['direccionfiscal']) : "";
+
+                    $solicitud = $this->model->setCliente($identificacion,$nombres,$apellidos,$telefono,$correo,$direccion,$nit,$nfiscal,$dirfiscal);
                 }
                 else
                 {
