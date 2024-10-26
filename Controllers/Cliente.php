@@ -25,42 +25,42 @@
                     if(empty($_POST['identificacion']))
                     {
                         $respuesta = array('status' => false, 'msg' => 'La Identificacion es Requerida' );
-                        JSONRespuesta($respuesta,200);
+                        JSONRespuesta($respuesta,405);
                         die();
                     }
 
                     if(!ValidarNombre($_POST['nombres']))
                     {
                         $respuesta = array('status' => false, 'msg' => 'El Nombre no Contiene un Formato Correcto');
-                        JSONRespuesta($respuesta,200);
+                        JSONRespuesta($respuesta,405);
                         die();
                     }
 
                     if(!ValidarNombre($_POST['apellidos']))
                     {
                         $respuesta = array('status' => false, 'msg' => 'El Apellido no Contiene un Formato Correcto');
-                        JSONRespuesta($respuesta,200);
+                        JSONRespuesta($respuesta,405);
                         die();
                     }
 
                     if(!ValidarNumero($_POST['telefono']))
                     {
                         $respuesta = array('status' => false, 'msg' => 'El Formato del Numero es Invalido' );
-                        JSONRespuesta($respuesta,200);
+                        JSONRespuesta($respuesta,405);
                         die();
                     }
 
                     if(!ValidarCorreo($_POST['email']))
                     {
                         $respuesta = array('status' => false, 'msg' => 'El Formato del Correo es Invalido' );
-                        JSONRespuesta($respuesta,200);
+                        JSONRespuesta($respuesta,405);
                         die();
                     }
 
                     if(empty($_POST['direccion']))
                     {
                         $respuesta = array('status' => false, 'msg' => 'La Direccion es Requerida' );
-                        JSONRespuesta($respuesta,200);
+                        JSONRespuesta($respuesta,405);
                         die();
                     }
                     $identificacion = $_POST['identificacion'];
@@ -74,6 +74,19 @@
                     $dirfiscal = !empty($_POST['direccionfiscal']) ? LimpiarCadena($_POST['direccionfiscal']) : "";
 
                     $solicitud = $this->model->setCliente($identificacion,$nombres,$apellidos,$telefono,$correo,$direccion,$nit,$nfiscal,$dirfiscal);
+
+                    if($solicitud > 0)
+                    {
+                        $arrCliente = array('idcliente' => $solicitud,'identificacion'=>$identificacion,'nombres'=>$nombres,'apellidos'=>$apellidos,'telefono'=>$telefono,'email'=>$correo,'direccion'=>$direccion,'nit'=>$nit,'nombrefiscal'=>$nfiscal,'direccionfiscal'=>$nfiscal);
+
+                        $respuesta = array('status' => true, 'msg' => 'Datos Guardados Correctamente', 'data' => $arrCliente);
+                        $codigo = 200;
+                    }
+                    else
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'Identificación o el Correo ya Existen', $metodo);
+                        $codigo = 405;
+                    }
                 }
                 else
                 {
