@@ -24,7 +24,7 @@
             { 
                 $params .= $arrayurl[$i] . ', ';
             }
-            $params = trim($params,",");
+            $params = trim($params,", ");
         }
     }
 
