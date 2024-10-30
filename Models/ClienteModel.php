@@ -63,7 +63,7 @@
       $this->strNomFiscal = $nombrefiscal;
       $this->strDirFiscal = $dirfiscal;
 
-      $sql = "SELECT identificacion,email FROM cliente WHERE (email = :correo AND idcliente != :id) OR (identificacion= :ident AND idcliente = :id) AND status = 1";
+      $sql = "SELECT identificacion,email FROM cliente WHERE (email = :correo AND idcliente != :id) OR (identificacion= :ident AND idcliente != :id) AND status = 1";
 
       $parametros = array(":correo" => $this->strEmail, ":id" => $this->intIdCliente, ":ident" => $this->strIdentificacion);
 
