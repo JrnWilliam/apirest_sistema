@@ -124,7 +124,7 @@
                 {
                     $parametros = json_decode(file_get_contents('php://input'),true);
 
-                    if(empty($idcliente) or !is_numeric($idcliente))
+                    if(empty($idcliente) || !is_numeric($idcliente))
                     {
                         $respuesta = array('status' => false, 'msg' => 'Error en los Parametros');
                         $codigo = 400;
@@ -183,6 +183,8 @@
                     $nit = !empty($parametros['nit']) ? LimpiarCadena($parametros['nit']) : "";
                     $nfiscal = !empty($parametros['nombrefiscal']) ? LimpiarCadena($parametros['nombrefiscal']) : "";
                     $dirfiscal = !empty($parametros['direccionfiscal']) ? LimpiarCadena($parametros['direccionfiscal']) : "";
+
+                    $solicitud = $this->model->putCliente($idcliente,$identificacion,$nombres,$apellidos,$telefono,$correo,$direccion,$nit,$nfiscal,$dirfiscal);
 
                     $respuesta = array('status' => true, 'msg' => 'Datos Actualizados Correctamente', 'data' => "");
                     $codigo = 200;
