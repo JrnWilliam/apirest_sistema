@@ -9,11 +9,7 @@
 
         if(method_exists($controller, $method))
         {
-            $controller->
-            {
-                $method
-            }
-            ($params);
+            $controller->{$method}($params);
         }
         else
         {
