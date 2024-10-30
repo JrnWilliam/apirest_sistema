@@ -186,8 +186,18 @@
 
                     $solicitud = $this->model->putCliente($idcliente,$identificacion,$nombres,$apellidos,$telefono,$correo,$direccion,$nit,$nfiscal,$dirfiscal);
 
-                    $respuesta = array('status' => true, 'msg' => 'Datos Actualizados Correctamente', 'data' => "");
-                    $codigo = 200;
+                    if($solicitud)
+                    {
+                        $arrCliente = array('idcliente' => $idcliente, 'identificacion' => $identificacion, 'nombres' => $nombres, 'apellidos' => $apellidos, 'telefono' => $telefono, 'email' => $correo, 'direccion' => $direccion, 'nit' => $nit, 'nombrefiscal' =>$nfiscal, 'direccionfiscal' => $dirfiscal);
+
+                        $respuesta = array('status' => true, 'msg' => 'Datos Actualizados Correctamente', 'data' => $arrCliente);
+                        $codigo = 200;
+                    }
+                    else
+                    {
+                        $respuesta = array('status' => true, 'msg' => 'El Correo o la Identificación ya Existen');
+                        $codigo = 400;
+                    }
                 }
                 else
                 {
