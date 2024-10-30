@@ -49,5 +49,19 @@
           return $solicitudinsert;
         }
     }
+
+    public function putCliente(int $idcliente, string $identificacion, string $nombres, string $apellidos, int $telefono, string $email, string $direccion, string $nit, string $nombrefiscal, string $dirfiscal)
+    {
+      $this->intIdCliente = $idcliente;
+      $this->strIdentificacion = $identificacion;
+      $this->strNombres= $nombres;
+      $this->strApellidos = $apellidos;
+      $this->intTelefono = $telefono;
+      $this->strEmail = $email;
+      $this->strDireccion = $direccion;
+      $this->strNit = $nit;
+      $this->strNomFiscal = $nombrefiscal;
+      $this->strDirFiscal = $dirfiscal;
+    }
   }
 ?>
