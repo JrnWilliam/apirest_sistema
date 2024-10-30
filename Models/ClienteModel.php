@@ -62,6 +62,26 @@
       $this->strNit = $nit;
       $this->strNomFiscal = $nombrefiscal;
       $this->strDirFiscal = $dirfiscal;
+
+      $sql = "SELECT identificacion,email FROM cliente WHERE (email = :correo AND idcliente != :id) OR (identificacion= :ident AND idcliente = :id) AND status = 1";
+
+      $parametros = array(":correo" => $this->strEmail, ":id" => $this->intIdCliente, ":ident" => $this->strIdentificacion);
+
+      $solicitud = $this->SeleccionarUnRegistro($sql,$parametros);
+
+      if(empty($solicitud))
+      {
+        $consulta = "UPDATE cliente SET identificacion = :ident, nombres = :nom, apellidos = :ape, telefono = :tel, email = :correo, direccion = :dir, nit = :nit, nombrefiscal = :nomfiscal, direccionfiscal = :dirfiscal WHERE idcliente = :id";
+
+        $param = array(":id" => $this->intIdCliente,":ident" => $this->strIdentificacion, ":nom" => $this->strNombres, ":ape" => $this->strApellidos, ":tel" => $this-> intTelefono, ":correo" => $this->strEmail, ":dir" => $this->strDireccion, ":nit" => $this->strNit, ":nomfiscal" => $this->strNomFiscal, ":dirfiscal" => $this->strDirFiscal);
+
+        $solicitudupdate = $this->ActualizarRegistro($consulta,$param);
+        return $solicitudupdate;
+      }
+      else
+      {
+        return false;
+      }
     }
   }
 ?>
