@@ -184,6 +184,14 @@
                     $nfiscal = !empty($parametros['nombrefiscal']) ? LimpiarCadena($parametros['nombrefiscal']) : "";
                     $dirfiscal = !empty($parametros['direccionfiscal']) ? LimpiarCadena($parametros['direccionfiscal']) : "";
 
+                    $validarCliente = $this->model->getCliente($idcliente);
+                    if(empty($validarCliente))
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'El Cliente no Existe');
+                        JSONRespuesta($respuesta,400);
+                        die();
+                    }
+
                     $solicitud = $this->model->putCliente($idcliente,$identificacion,$nombres,$apellidos,$telefono,$correo,$direccion,$nit,$nfiscal,$dirfiscal);
 
                     if($solicitud)
