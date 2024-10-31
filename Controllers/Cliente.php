@@ -8,7 +8,28 @@
 
         public function SeleccionarCliente($idcliente)
         {
-            echo "Controlador Cliente" . $idcliente;
+            try
+            {
+                $metodo = $_SERVER['REQUEST_METHOD'];
+                $respuesta = [];
+
+                if($metodo == "GET")
+                {
+                    echo "Extraer Datos del Cliente";
+                    $codigo = 200;
+                }
+                else
+                {
+                    $respuesta = array('status' => false, 'msg' => 'Error en la Solicitud' . $metodo);
+                    $codigo = 400;
+                }
+                JSONRespuesta($respuesta,$codigo);
+            }
+            catch (Exception $e)
+            {
+                echo "Error en el Proceso ". $e->getMessage();
+            }
+            die();
         }
 
         public function RegistroClientes()
