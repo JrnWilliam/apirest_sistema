@@ -140,7 +140,30 @@
 
         public function MostrarClientes()
         {
-            echo "Registro de Clientes";
+            try
+            {
+                $metodo = $_SERVER['REQUEST_METHOD'];
+                $respuesta = [];
+
+                if($metodo == "GET")
+                {
+                    echo "Extraer Todos los Registros";
+                    $codigo = 200;
+                }
+                else
+                {
+                    $respuesta = array('status' => false, 'msg' => 'Error en la Solicitud ' . $metodo);
+                    $codigo = 400;
+                }
+                JSONRespuesta($respuesta,$codigo);
+                die();
+            }
+            catch (Exception $e)
+            {
+                echo "Error en el Proceso " . $e->getMessage();
+
+            }
+            die();
         }
 
         public function EliminarCliente($idcliente)
