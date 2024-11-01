@@ -15,7 +15,21 @@
 
                 if($metodo == "GET")
                 {
-                    echo "Extraer Datos del Cliente";
+                    if(empty($idcliente) or !is_numeric($idcliente))
+                    {
+                        $respuesta = array('status' => false , 'msg' => 'Error en los Parametros');
+                        JSONRespuesta($respuesta,400);
+                        die();
+                    }
+                    $parametros = $this->model->getCliente($idcliente);
+                    if(empty($parametros))
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'Registro no Encontrado');
+                    }
+                    else
+                    {
+                        $respuesta = array('status' => true, 'msg' => 'Datos Encontrados', 'data' => $parametros);
+                    }
                     $codigo = 200;
                 }
                 else
