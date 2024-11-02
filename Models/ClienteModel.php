@@ -100,12 +100,18 @@
       return $solicitud;
     }
 
-    public function deleteCliente($idcliente)
+    public function desactivarCliente($idcliente)
     {
+      // $this->intIdCliente = $idcliente;
+      // $sql = "DELETE FROM cliente WHERE idcliente = :id";
+      // $parametros = array(":id" => $this->intIdCliente);
+      // $solicitud = $this->EliminarRegistro($sql,$parametros);
+      // return $solicitud;
+
       $this->intIdCliente = $idcliente;
-      $sql = "DELETE FROM cliente WHERE idcliente = :id";
-      $parametros = array(":id" => $this->intIdCliente);
-      $solicitud = $this->EliminarRegistro($sql,$parametros);
+      $sql = "UPDATE cliente SET status = :estado WHERE idcliente = :id";
+      $parametros = array(":estado" => 0,":id" => $this->intIdCliente);
+      $solicitud = $this->ActualizarRegistro($sql,$parametros);
       return $solicitud;
     }
   }
