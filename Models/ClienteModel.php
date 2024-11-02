@@ -99,5 +99,14 @@
       $solicitud = $this->SeleccionarRegistros($sql);
       return $solicitud;
     }
+
+    public function deleteCliente($idcliente)
+    {
+      $this->intIdCliente = $idcliente;
+      $sql = "DELETE FROM cliente WHERE idcliente = :id";
+      $parametros = array(":id" => $this->intIdCliente);
+      $solicitud = $this->EliminarRegistro($sql,$parametros);
+      return $solicitud;
+    }
   }
 ?>
