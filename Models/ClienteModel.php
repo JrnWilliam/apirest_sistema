@@ -53,7 +53,7 @@
     public function getCliente(int $idcliente)
     {
       $this -> intIdCliente = $idcliente;
-      $consulta = "SELECT *FROM cliente WHERE idcliente= :id";
+      $consulta = "SELECT *FROM cliente WHERE idcliente= :id AND status = 1";
       $parametros = array(":id" => $this->intIdCliente);
       $solicitud = $this->SeleccionarUnRegistro($consulta,$parametros);
       return $solicitud;
@@ -91,6 +91,13 @@
       {
         return false;
       }
+    }
+
+    public function getClientes()
+    {
+      $sql = "SELECT idcliente, identificacion, nombres, apellidos, telefono, email, direccion, nit, nombrefiscal, direccionfiscal, DATE_FORMAT(fechacreacion, '%d/%m/%Y') as fecharegistro FROM cliente WHERE status = 1 ORDER BY idcliente DESC";
+      $solicitud = $this->SeleccionarRegistros($sql);
+      return $solicitud;
     }
   }
 ?>
