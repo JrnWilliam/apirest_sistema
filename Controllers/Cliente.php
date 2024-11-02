@@ -147,7 +147,15 @@
 
                 if($metodo == "GET")
                 {
-                    echo "Extraer Todos los Registros";
+                    $parametros = $this->model->getClientes();
+                    if(empty($parametros))
+                    {
+                        $respuesta = array('status'=> true, 'msg' => 'No hay Datos para Mostrar');
+                    }
+                    else
+                    {
+                        $respuesta = array('status'=> true, 'msg' => 'Datos Encontrados' , 'data' => $parametros);
+                    }
                     $codigo = 200;
                 }
                 else
