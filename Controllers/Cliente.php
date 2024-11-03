@@ -174,14 +174,14 @@
             die();
         }
 
-        public function EliminarCliente($idcliente)
+        public function DesactivarCliente($idcliente)
         {
             try
             {
                 $metodo = $_SERVER['REQUEST_METHOD'];
                 $respuesta = [];
 
-                if($metodo == "DELETE")
+                if($metodo == "PATCH")
                 {
                     if(empty($idcliente) || !is_numeric($idcliente))
                     {
@@ -189,6 +189,25 @@
                         JSONRespuesta($respuesta,400);
                         die();
                     }
+
+                    $buscarcliente = $this->model->getCliente($idcliente);
+                    if(empty($buscarcliente))
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'El Cliente no Existe');
+                        JSONRespuesta($respuesta,400);
+                        die();
+                    }
+
+                    $solicitud = $this->model->desactivarCliente($idcliente);
+                    if($solicitud)
+                    {
+                        $respuesta = array('status' => true, 'msg' => 'Cliente Desactivado');
+                    }
+                    else
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'El Cliente no Existe o ya fue Desactivado');
+                    }
+
                     $codigo = 200;   
                 }
                 else
