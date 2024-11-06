@@ -13,7 +13,28 @@
 
         public function RegistrarProducto()
         {
-            echo "Registro Exitoso";
+            try
+            {
+                $metodo = $_SERVER['REQUEST_METHOD'];
+                $respuesta = [];
+
+                if($metodo == "POST")
+                {
+                    echo "Registrar Producto";
+                    $codigo = 200;
+                }
+                else
+                {
+                    $respuesta = array('status' => false, 'msg' => 'Error en la Solicitud ' . $metodo);
+                    $codigo = 400;
+                }
+                JSONRespuesta($respuesta,$codigo);
+                die();
+            }
+            catch (Exception $e)
+            {
+                echo "Error en el Proceso " . $e->getMessage();
+            }
         }
 
         Public function MostrarProductos()
