@@ -51,8 +51,20 @@
                     $nombre = ucwords(strtolower(LimpiarCadena($_POST['nombre'])));
                     $descripcion = ucwords(strtolower(LimpiarCadena($_POST['descripcion'])));
                     $precio = LimpiarCadena($_POST['precio']);
-                    
-                    $codigo = 200;
+
+                    $solicitud = $this->model->setProducto($codigo, $nombre, $descripcion,$precio);
+
+                    if($solicitud > 0)
+                    {
+                        $arrproducto = array('idproducto' => $solicitud, 'codigo' => $codigo, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio);
+                        $respuesta = array('status' => true, 'msg' => 'Datos Guardados Correctamente', 'data' => $arrproducto);
+                        $codigo = 200;
+                    }
+                    else
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'El Codigo ya Existe');
+                        $codigo = 400;
+                    }
                 }
                 else
                 {
