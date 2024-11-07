@@ -24,6 +24,19 @@
             $parametros = array(":cod" => $this->strcodigo);
 
             $solicitud = $this->SeleccionarUnRegistro($sql, $parametros);
+
+            if(empty($solicitud))
+            {
+                $consulta = "INSERT INTO producto(codigo, nombre, descripcion, precio) VALUES (:cod, :nom, :descr, :price)";
+                $param = array(":cod" => $this->strcodigo, ":nom" => $this->strnombre, ":descr" => $this->strdescripcion, ":price" => $this->strprecio);
+
+                $insertar = $this->InsertarRegistro($consulta,$param);
+                return $insertar;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 ?>
