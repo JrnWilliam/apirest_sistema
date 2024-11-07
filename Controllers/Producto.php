@@ -25,8 +25,13 @@
                     if(empty($_POST['codigo']))
                     {
                         $respuesta = array('status' => false, 'msg' => 'El Codigo es Requerido');
-                        JSONRespuesta($respuesta,200);
+                        JSONRespuesta($respuesta,400);
                         die();
+                    }
+                    if(empty($_POST['nombre']))
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'El Nombre del Producto es Requerido');
+                        JSONRespuesta($respuesta,400);
                     }
                     $codigo = 200;
                 }
