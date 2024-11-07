@@ -20,7 +20,14 @@
 
                 if($metodo == "POST")
                 {
-                    echo "Registrar Producto";
+                    $_POST = json_decode(file_get_contents('php://input'),true);
+
+                    if(empty($_POST['codigo']))
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'El Codigo es Requerido');
+                        JSONRespuesta($respuesta,200);
+                        die();
+                    }
                     $codigo = 200;
                 }
                 else
