@@ -32,7 +32,26 @@
                     {
                         $respuesta = array('status' => false, 'msg' => 'El Nombre del Producto es Requerido');
                         JSONRespuesta($respuesta,400);
+                        die();
                     }
+                    if(empty($_POST['descripcion']))
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'La Descripción del Producto es Requerida');
+                        JSONRespuesta($respuesta,400);
+                        die();
+                    }
+                    if(empty($_POST['precio']) or !is_numeric($_POST['precio']))
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'El precio del Producto es Requerido');
+                        JSONRespuesta($respuesta,400);
+                        die();
+                    }
+
+                    $codigo = LimpiarCadena($_POST['codigo']);
+                    $nombre = ucwords(strtolower(LimpiarCadena($_POST['nombre'])));
+                    $descripcion = ucwords(strtolower(LimpiarCadena($_POST['descripcion'])));
+                    $precio = LimpiarCadena($_POST['precio']);
+                    
                     $codigo = 200;
                 }
                 else
