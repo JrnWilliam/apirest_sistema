@@ -47,16 +47,16 @@
                         die();
                     }
 
-                    $codigo = LimpiarCadena($_POST['codigo']);
+                    $strcodigo = LimpiarCadena($_POST['codigo']);
                     $nombre = ucwords(strtolower(LimpiarCadena($_POST['nombre'])));
                     $descripcion = ucwords(strtolower(LimpiarCadena($_POST['descripcion'])));
                     $precio = LimpiarCadena($_POST['precio']);
 
-                    $solicitud = $this->model->setProducto($codigo, $nombre, $descripcion,$precio);
+                    $solicitud = $this->model->setProducto($strcodigo, $nombre, $descripcion,$precio);
 
                     if($solicitud > 0)
                     {
-                        $arrproducto = array('idproducto' => $solicitud, 'codigo' => $codigo, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio);
+                        $arrproducto = array('idproducto' => $solicitud, 'codigo' => $strcodigo, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio);
                         $respuesta = array('status' => true, 'msg' => 'Datos Guardados Correctamente', 'data' => $arrproducto);
                         $codigo = 200;
                     }
@@ -94,18 +94,52 @@
 
                 if($metodo == "PUT")
                 {
+                    $parametro = json_decode(file_get_contents('php://input'),true);
+
                     if(empty($idproducto) or !is_numeric($idproducto))
                     {
                         $respuesta = array('status' => false, 'msg' => 'Error en los Parametros');
                         JSONRespuesta($respuesta,400);
                         die();
                     }
-                    if(empty($_SERVER['codigo']))
+                    if(empty($parametro['codigo']))
                     {
                         $respuesta = array('status' => false, 'msg' => 'Codigo del Producto es Requerido');
                         JSONRespuesta($respuesta,400);
                         die();
                     }
+                    if(empty($parametro['nombre']))
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'El Nombre del Producto es Requerido');
+                        JSONRespuesta($respuesta,400);
+                        die();
+                    }
+                    if(empty($parametro['descripcion']))
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'La Descripción es Requerida');
+                        JSONRespuesta($respuesta, 400);
+                        die();
+                    }
+                    if(empty($parametro['precio']))
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'El Precio es Requerido');
+                        JSONRespuesta($respuesta,400);
+                        die();
+                    }
+
+                    $strcodigo = LimpiarCadena($parametro['codigo']);
+                    $nombre = ucwords(strtolower(LimpiarCadena($parametro['nombre'])));
+                    $descripcion = ucwords(strtolower(LimpiarCadena($parametro['descripcion'])));
+                    $precio = LimpiarCadena($parametro['precio']);
+                    
+                    $obtenerProducto = $this->model->getproducto($idproducto);
+                    if(empty($obtenerProducto))
+                    {
+                        $respuesta = array('status' => false, 'msg' => "El Registro no Existe");
+                        JSONRespuesta($respuesta,400);
+                        die();
+                    }
+
                     $respuesta = array('status' => true, 'msg' => 'Datos Actualizados Correctamente', 'data' => '');
                     $codigo = 200;
                 }
