@@ -38,5 +38,14 @@
                 return false;
             }
         }
+
+        public function getProducto(int $idproducto)
+        {
+            $this->intidproducto = $idproducto;
+            $sql = "SELECT *FROM producto WHERE idproducto = :id";
+            $parametros = array(":id" => $this->intidproducto);
+            $solicitud = $this->SeleccionarUnRegistro($sql,$parametros);
+            return $solicitud;
+        }
     }
 ?>
