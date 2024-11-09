@@ -47,5 +47,26 @@
             $solicitud = $this->SeleccionarUnRegistro($sql,$parametros);
             return $solicitud;
         }
+
+        public function putProducto(int $idproducto, string $codigo, string $nombre, string $descripcion, string $precio)
+        {
+            $this->intidproducto = $idproducto;
+            $this->strcodigo = $codigo;
+            $this->strnombre = $nombre;
+            $this->strdescripcion = $descripcion;
+            $this->strprecio = $precio;
+            $sql = "SELECT * FROM producto WHERE (codigo = :cod AND idproducto != :id) AND estatus = 1";
+            $parametros = array(":id" => $this->intidproducto,":cod" => $this->strcodigo);
+            $solicitud = $this->SeleccionarUnRegistro($sql,$parametros);
+
+            if(empty($solicitud))
+            {
+                echo "Actualizar Datos";
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 ?>
