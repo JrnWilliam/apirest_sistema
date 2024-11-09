@@ -140,6 +140,16 @@
                         die();
                     }
 
+                    $solicitud = $this->model->putProducto($idproducto,$strcodigo,$nombre,$descripcion,$precio);
+                    if($solicitud)
+                    {
+                        
+                    }
+                    else
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'El Codigo ya Existe');
+                    }
+
                     $respuesta = array('status' => true, 'msg' => 'Datos Actualizados Correctamente', 'data' => '');
                     $codigo = 200;
                 }
