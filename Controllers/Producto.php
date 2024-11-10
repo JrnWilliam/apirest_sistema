@@ -143,15 +143,15 @@
                     $solicitud = $this->model->putProducto($idproducto,$strcodigo,$nombre,$descripcion,$precio);
                     if($solicitud)
                     {
-                        
+                        $arrproducto = array('idproducto' => $idproducto, 'codigo' => $strcodigo, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio);
+                        $respuesta = array('status' => true, 'msg' => 'Datos Actualizados Correctamente', 'data' => $arrproducto);
+                        $codigo = 200;
                     }
                     else
                     {
                         $respuesta = array('status' => false, 'msg' => 'El Codigo ya Existe');
+                        $codigo = 400;
                     }
-
-                    $respuesta = array('status' => true, 'msg' => 'Datos Actualizados Correctamente', 'data' => '');
-                    $codigo = 200;
                 }
                 else
                 {
