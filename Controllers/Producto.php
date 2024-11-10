@@ -8,7 +8,35 @@
 
         public function SeleccionarProducto($idproducto)
         {
-            echo "Extraer Producto " . $idproducto;
+            try
+            {
+                $metodo = $_SERVER['REQUEST_METHOD'];
+                $respuesta = [];
+
+                if($metodo == "GET")
+                {
+                    if(empty($idproducto) OR !is_numeric($idproducto))
+                    {
+                        $respuesta = array('status' => false, 'msg' => "Error en los Parametros");
+                        JSONRespuesta($respuesta,400);
+                        die();
+                    }
+                    $respuesta = array('status' => true, 'msg' => 'Registro Obtenido Correctamente', 'data' => '');
+                    $codigo = 200;
+                }
+                else
+                {
+                    $respuesta = array('status' => false, 'msg' => 'Error en la Solicitud ' . $metodo);
+                    $codigo = 400;
+                }
+                JSONRespuesta($respuesta,$codigo);
+                die();
+            }
+            catch (Exception $e)
+            {
+                echo "Error en el Proceso " . $e->getMessage();
+            }
+            die();
         }
 
         public function RegistrarProducto()
@@ -78,6 +106,7 @@
             {
                 echo "Error en el Proceso " . $e->getMessage();
             }
+            die();
         }
 
         Public function MostrarProductos()
