@@ -61,7 +61,10 @@
 
             if(empty($solicitud))
             {
-                echo "Actualizar Datos";
+                $consulta = "UPDATE producto SET codigo = :cod, nombre = :name, descripcion = :descr, precio = :price WHERE idproducto = :id";
+                $param = array(":id" => $this->intidproducto, ":cod" => $this->strcodigo, ":name" => $this->strnombre, ":descr" => $this->strdescripcion, ":price" => $this-> strprecio);
+                $solicitud = $this->ActualizarRegistro($consulta,$param);
+                return $solicitud;
             }
             else
             {
