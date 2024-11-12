@@ -239,7 +239,33 @@
 
         public function EliminarProducto($idproducto)
         {
-            echo "Producto Eliminado " . $idproducto;
+            try
+            {
+                $metodo = $_SERVER['REQUEST_METHOD'];
+                $respuesta = [];
+                if($metodo == "DELETE")
+                {
+                    if(empty($idproducto) or !is_numeric($idproducto))
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'Error en los Parametros');
+                        JSONRespuesta($respuesta,400);
+                        die();
+                    }
+                    $codigo = 200;
+                }
+                else
+                {
+                    $respuesta = array('status' => false, 'msg' => 'Error en la Solicitud ' . $metodo);
+                    $codigo = 400;
+                }
+                JSONRespuesta($respuesta,$codigo);
+                die();
+            }
+            catch(Exception $e)
+            {
+                echo "Error en el Proceso " . $e->getMessage();
+            }
+            die();
         }
     }
 ?>
