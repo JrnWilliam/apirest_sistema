@@ -78,5 +78,14 @@
             $solicitud = $this->SeleccionarRegistros($sql);
             return $solicitud;
         }
+
+        public function desactivarProducto(int $idproducto)
+        {
+            $this->intidproducto = $idproducto;
+            $sql = "UPDATE producto SET status = :estado WHERE idproducto = :id";
+            $parametro = array(":id" => $this->intidproducto, ":estado" => 0);
+            $solicitud = $this->ActualizarRegistro($sql,$parametro);
+            return $solicitud;
+        }
     }
 ?>
