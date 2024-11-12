@@ -121,7 +121,37 @@
 
         Public function MostrarProductos()
         {
-            echo "Mostrar Todos los Productos";
+            try
+            {
+                $metodo = $_SERVER['REQUEST_METHOD'];
+                $respuesta = [];
+
+                if($metodo == "GET")
+                {
+                    $solicitud = $this->model->getProductos();
+                    if(empty($solicitud))
+                    {
+                        $respuesta = array('status' => true, 'msg' => 'No hay Datos Para Mostrar');
+                    }
+                    else
+                    {
+                        $respuesta = array('status' => true, 'msg' => 'Datos Encontrados', 'Data' => $solicitud);
+                    }
+                    $codigo = 200;
+                }
+                else
+                {
+                    $respuesta = array('status' => false, 'msg' => 'Error en la Solicitud ' . $metodo);
+                    $codigo = 400;
+                }
+                JSONRespuesta($respuesta,$codigo);
+                die();
+            }
+            catch (Exception $e)
+            {
+                echo "Error en el Proceso " . $e->getMessage();
+            }
+            die();
         }
 
         public function ActualizarProducto($idproducto)
