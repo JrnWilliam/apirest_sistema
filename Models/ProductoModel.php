@@ -71,5 +71,12 @@
                 return false;
             }
         }
+
+        public function getProductos()
+        {
+            $sql = "SELECT idproducto, codigo, nombre, descripcion, precio, DATE_FORMAT(fechacreacion, '%d/%m/%Y') AS FechaRegistro FROM producto WHERE estatus == 1 ORDER BY idproducto DESC";
+            $solicitud = $this->SeleccionarRegistros($sql);
+            return $solicitud;
+        }
     }
 ?>
