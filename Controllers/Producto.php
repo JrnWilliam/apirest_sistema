@@ -21,8 +21,18 @@
                         JSONRespuesta($respuesta,400);
                         die();
                     }
-                    $respuesta = array('status' => true, 'msg' => 'Registro Obtenido Correctamente', 'data' => '');
-                    $codigo = 200;
+
+                    $solicitud = $this->model->getProducto($idproducto);
+                    if(empty($solicitud))
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'Registro no Encontrado');
+                        $codigo = 400;
+                    }
+                    else
+                    {
+                        $respuesta = array('status' => true, 'msg' => 'Registro Obtenido Correctamente', 'data' => $solicitud);
+                        $codigo = 200;
+                    }
                 }
                 else
                 {
