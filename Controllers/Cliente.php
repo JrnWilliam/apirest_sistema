@@ -191,28 +191,30 @@
                     }
 
                     $buscarcliente = $this->model->getCliente($idcliente);
+
                     if(empty($buscarcliente))
                     {
                         $respuesta = array('status' => false, 'msg' => 'El Cliente no Existe');
                         JSONRespuesta($respuesta,400);
                         die();
                     }
-
-                    $solicitud = $this->model->desactivarCliente($idcliente);
-                    if($solicitud)
-                    {
-                        $respuesta = array('status' => true, 'msg' => 'Cliente Desactivado');
-                    }
                     else
                     {
-                        $respuesta = array('status' => false, 'msg' => 'El Cliente no Existe o ya fue Desactivado');
+                        $solicitud = $this->model->desactivarCliente($idcliente);
+                        if($solicitud)
+                        {
+                            $respuesta = array('status' => true, 'msg' => 'Cliente Desactivado');
+                        }
+                        else
+                        {
+                            $respuesta = array('status' => false, 'msg' => 'El Cliente no Existe o ya fue Desactivado', 'data' => $solicitud);
+                        }
                     }
-
                     $codigo = 200;   
                 }
                 else
                 {
-                    $respuesta = array('status' => false, 'msg' => 'Error en la Solicitud' . $metodo);
+                    $respuesta = array('status' => false, 'msg' => 'Error en la Solicitud ' . $metodo);
                     $codigo = 400;
                 }
                 JSONRespuesta($respuesta,$codigo);
