@@ -112,7 +112,14 @@
       $sql = "UPDATE cliente SET status = :estado WHERE idcliente = :id";
       $parametros = array(":estado" => 0,":id" => $this->intIdCliente);
       $solicitud = $this->ActualizarRegistro($sql,$parametros);
-      return $solicitud;
+      if(strpos($solicitud,"Error")!== false)
+      {
+        return false;
+      }
+      else
+      {
+        return true;
+      }
     }
   }
 ?>
