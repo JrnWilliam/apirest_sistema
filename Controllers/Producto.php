@@ -237,13 +237,13 @@
             die();
         }
 
-        public function EliminarProducto($idproducto)
+        public function DesactivarProducto($idproducto)
         {
             try
             {
                 $metodo = $_SERVER['REQUEST_METHOD'];
                 $respuesta = [];
-                if($metodo == "DELETE")
+                if($metodo == "PATCH")
                 {
                     if(empty($idproducto) or !is_numeric($idproducto))
                     {
@@ -251,7 +251,31 @@
                         JSONRespuesta($respuesta,400);
                         die();
                     }
-                    $codigo = 200;
+
+                    $buscarProducto = $this->model->getProducto($idproducto);
+
+                    if(empty($buscarProducto))
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'Producto no Encontrado');
+                        JSONRespuesta($respuesta,400);
+                        die();
+                    }
+                    else
+                    {
+                        $solicitud = $this->model->desactivarProducto($idproducto);
+                        
+                        if($solicitud)
+                        {
+                            $respuesta = array('status' => true, 'msg' => 'Producto Desactivado');
+                            $codigo = 200;
+                        }
+                        else
+                        {
+                            $respuesta = array('status' => false, 'msg' => 'El Producto no Existe o ya Esta Inactivo ');
+                            $codigo = 200;
+                        }
+
+                    }
                 }
                 else
                 {
