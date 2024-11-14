@@ -80,7 +80,7 @@
         $update = $this->conexion->prepare($this->query);
         $resupdate = $update->execute($this->valores);
         $update->closeCursor();
-        return $update;
+        return $resupdate;
       }
       catch(PDOException $e)
       {
