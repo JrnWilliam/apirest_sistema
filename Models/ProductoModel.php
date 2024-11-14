@@ -42,7 +42,7 @@
         public function getProducto(int $idproducto)
         {
             $this->intidproducto = $idproducto;
-            $sql = "SELECT *FROM producto WHERE idproducto = :id";
+            $sql = "SELECT *FROM producto WHERE idproducto = :id and estatus != 0";
             $parametros = array(":id" => $this->intidproducto);
             $solicitud = $this->SeleccionarUnRegistro($sql,$parametros);
             return $solicitud;
@@ -82,10 +82,18 @@
         public function desactivarProducto(int $idproducto)
         {
             $this->intidproducto = $idproducto;
-            $sql = "UPDATE producto SET status = :estado WHERE idproducto = :id";
+            $sql = "UPDATE producto SET estatus = :estado WHERE idproducto = :id";
             $parametro = array(":id" => $this->intidproducto, ":estado" => 0);
             $solicitud = $this->ActualizarRegistro($sql,$parametro);
-            return $solicitud;
+            
+            if(strpos($solicitud,"Error") !== false)
+            {
+                return false;
+            }
+            else
+            {
+                return $solicitud;
+            }
         }
     }
 ?>
