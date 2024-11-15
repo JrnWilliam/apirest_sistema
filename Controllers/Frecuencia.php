@@ -11,9 +11,31 @@
         echo "Frecuencia Seleccionada " . $idfrecuencia;
     }
 
-    public function RegistroFrecuencia()
+    public function RegistrarFrecuencia()
     {
-        echo "Frecuencia Registrada Correctamente";
+        try
+        {
+            $metodo = $_SERVER['REQUEST_METHOD'];
+            $respuesta = [];
+
+            if($metodo == "POST")
+            {
+                $respuesta = array('status' => true, 'msg' => 'Frecuencia Registrada Correctamente');
+                $codigo = 200;
+            }
+            else
+            {
+                $respuesta = array('status' => false, 'msg' => 'Error en la Solicitud ' . $metodo);
+                $codigo = 400;
+            }
+            JSONRespuesta($respuesta,$codigo);
+            die();
+        }
+        catch (Exception $e)
+        {
+            echo "Error en el Proceso " . $e->getMessage();
+        }
+        die();
     }
 
     public function ActualizarFrecuencia($idfrecuencia)
