@@ -33,8 +33,17 @@
 
                 $solicitud = $this->model->setFrecuencia($frecuencia);
 
-                $respuesta = array('status' => true, 'msg' => 'Frecuencia Registrada Correctamente');
-                $codigo = 200;
+                if($solicitud > 0)
+                {
+                    $arrFrecuencia = array('idfrecuencia' => $solicitud,'frecuencia' => $frecuencia);
+                    $respuesta = array('status' => true, 'msg' => 'Datos Guardados Correctamente', 'Data' => $arrFrecuencia);
+                    $codigo = 200;
+                }
+                else
+                {
+                    $respuesta = array('status' => false, 'msg' => 'La Frecuencia ya Existe');
+                    $codigo = 400;
+                }
             }
             else
             {
