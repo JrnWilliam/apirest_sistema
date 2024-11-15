@@ -20,6 +20,19 @@
 
             if($metodo == "POST")
             {
+                $_POST = json_decode(file_get_contents('php://input'),true);
+
+                if(empty($_POST['frecuencia']))
+                {
+                    $respuesta = array('status' => false, 'msg' => 'Frecuencia es Requerida');
+                    JSONRespuesta($respuesta,400);
+                    die();
+                }
+
+                $frecuencia = ucwords(LimpiarCadena($_POST['frecuencia']));
+
+                $solicitud = $this->model->setFrecuencia($frecuencia);
+
                 $respuesta = array('status' => true, 'msg' => 'Frecuencia Registrada Correctamente');
                 $codigo = 200;
             }
