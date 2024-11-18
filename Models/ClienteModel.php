@@ -100,7 +100,7 @@
       return $solicitud;
     }
 
-    public function desactivarCliente($idcliente)
+    public function desactivarCliente(int $idcliente)
     {
       // $this->intIdCliente = $idcliente;
       // $sql = "DELETE FROM cliente WHERE idcliente = :id";

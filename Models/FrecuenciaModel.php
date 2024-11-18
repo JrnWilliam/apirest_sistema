@@ -42,12 +42,12 @@
     {
       $this->intidFrecuencia = $idfrecuencia;
       $this->strFrecuencia = $frecuencia;
-      $sql = "SELECT *FROM frecuencia WHERE (idfrecuencia = :id AND frecuencia != :frc) AND estatus = :sts";
+      $sql = "SELECT *FROM frecuencia WHERE (idfrecuencia != :id AND frecuencia = :frc) AND estatus = :sts";
       $parametro = array(":id" => $this->intidFrecuencia, ":frc" => $this->strFrecuencia, ":sts" => 1);
       $solicitud = $this->SeleccionarUnRegistro($sql,$parametro);
       if(empty($solicitud))
       {
-        $consulta = "UPDATE frecuencia SET frecuencia = : frc WHERE idfrecuencia = :id";
+        $consulta = "UPDATE frecuencia SET frecuencia = :frc WHERE idfrecuencia = :id";
         $param = array(":id" => $this->intidFrecuencia, ":frc" => $this->strFrecuencia);
         $actualizar = $this->ActualizarRegistro($consulta,$param);
         return $actualizar;
