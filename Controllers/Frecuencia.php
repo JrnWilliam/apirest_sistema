@@ -89,6 +89,11 @@
 
                 $validarFrecuencia = $this->model->getFrecuencia($idfrecuencia);
 
+                if(empty($validarFrecuencia))
+                {
+                    $respuesta = array('status' => false, 'msg' => 'La Frecuencia no Existe');
+                }
+
                 $codigo = 200;
             }
             else
