@@ -62,7 +62,48 @@
 
     public function ActualizarFrecuencia($idfrecuencia)
     {
-        echo "Frecuencia Actualizada " . $idfrecuencia;
+        try
+        {
+            $metodo = $_SERVER['REQUEST_METHOD'];
+            $respuesta = [];
+
+            if($metodo == "PUT")
+            {
+                $parametro = json_decode(file_get_contents('php://input'),true);
+
+                if(empty($idfrecuencia) or !is_numeric($idfrecuencia))
+                {
+                    $respuesta = array('status' => false, 'msg' => 'Error en los Parametros');
+                    JSONRespuesta($respuesta,400);
+                    die();
+                }
+
+                if(empty($parametro['frecuencia']))
+                {
+                    $respuesta = array('status' => false, 'msg' => 'Ingrese el Valor de la Frecuencia');
+                    JSONRespuesta($respuesta,400);
+                    die();
+                }
+
+                $frecuencia = ucwords(LimpiarCadena($parametro['frecuencia']));
+
+                $validarFrecuencia = $this->model->getFrecuencia($idfrecuencia);
+
+                $codigo = 200;
+            }
+            else
+            {
+                $respuesta = array('status' => false, 'msg' => 'Error en la Solicitud ' . $metodo);
+                $codigo = 400;
+            }
+            JSONRespuesta($respuesta,$codigo);
+            die();
+        }
+        catch(Exception $e)
+        {
+            echo "Error en el Proceso " . $e->getMessage();
+        }
+        die();
     }
 
     public function MostrarFrecuencias()
