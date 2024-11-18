@@ -28,5 +28,14 @@
         return false;
       }
     }
+
+    public function getFrecuencia($idfrecuencia)
+    {
+      $this->intidFrecuencia = $idfrecuencia;
+      $sql = "SELECT *FROM frecuencia WHERE idfrecuencia = :id AND estatus = :est";
+      $parametro = array(":id" => $this->intidFrecuencia, ":est" => 1);
+      $solicitud = $this->SeleccionarUnRegistro($sql,$parametro);
+      return $solicitud;
+    }
   }  
 ?>
