@@ -29,13 +29,33 @@
       }
     }
 
-    public function getFrecuencia($idfrecuencia)
+    public function getFrecuencia(int $idfrecuencia)
     {
       $this->intidFrecuencia = $idfrecuencia;
       $sql = "SELECT *FROM frecuencia WHERE idfrecuencia = :id AND estatus = :est";
       $parametro = array(":id" => $this->intidFrecuencia, ":est" => 1);
       $solicitud = $this->SeleccionarUnRegistro($sql,$parametro);
       return $solicitud;
+    }
+
+    public function putFrecuencia(int $idfrecuencia,string $frecuencia)
+    {
+      $this->intidFrecuencia = $idfrecuencia;
+      $this->strFrecuencia = $frecuencia;
+      $sql = "SELECT *FROM frecuencia WHERE (idfrecuencia = :id AND frecuencia != :frc) AND estatus = :sts";
+      $parametro = array(":id" => $this->intidFrecuencia, ":frc" => $this->strFrecuencia, ":sts" => 1);
+      $solicitud = $this->SeleccionarUnRegistro($sql,$parametro);
+      if(empty($solicitud))
+      {
+        $consulta = "UPDATE frecuencia SET frecuencia = : frc WHERE idfrecuencia = :id";
+        $param = array(":id" => $this->intidFrecuencia, ":frc" => $this->strFrecuencia);
+        $actualizar = $this->ActualizarRegistro($consulta,$param);
+        return $actualizar;
+      }
+      else
+      {
+        return false;
+      }
     }
   }  
 ?>
