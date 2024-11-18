@@ -92,9 +92,25 @@
                 if(empty($validarFrecuencia))
                 {
                     $respuesta = array('status' => false, 'msg' => 'La Frecuencia no Existe');
+                    JSONRespuesta($respuesta,400);
+                    die();
                 }
+                else
+                {
+                    $solicitud = $this->model->putFrecuencia($idfrecuencia,$frecuencia);
 
-                $codigo = 200;
+                    if($solicitud)
+                    {
+                        $arrFrecuencia = array('idfrecuencia' => $idfrecuencia, 'frecuencia' => $frecuencia);
+                        $respuesta =  array('status' => true, 'msg' => 'Frecuencia Actualizada Correctamente', 'data' => $arrFrecuencia);
+                        $codigo = 200;
+                    }
+                    else
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'Frecuencia ya Existe');
+                        $codigo = 400;
+                    }
+                }
             }
             else
             {
