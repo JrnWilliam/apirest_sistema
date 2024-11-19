@@ -8,7 +8,39 @@
 
     public function SeleccionarFrecuencia($idfrecuencia)
     {
-        echo "Frecuencia Seleccionada " . $idfrecuencia;
+        try
+        {
+            $metodo = $_SERVER['REQUEST_METHOD'];
+            $respuesta = [];
+            if($metodo == "GET")
+            {
+                if(empty($idfrecuencia) || !is_numeric($idfrecuencia))
+                {
+                    $respuesta = array('status' => false, 'msg' => 'Error en los Parametros');
+                    JSONRespuesta($respuesta,400);
+                    die();
+                }
+
+                $solicitud = $this->model->getFrecuencia($idfrecuencia);
+                if(empty($solicitud))
+                {
+                    $respuesta = array('status' => false, 'msg' => 'Registro No Encontrada');
+                }
+                $codigo = 200;
+            }
+            else
+            {
+                $respuesta = array('status' => false, 'msg' => 'Error en la Solicitud ' . $metodo);
+                $codigo = 400;
+            }
+            JSONRespuesta($respuesta,$codigo);
+            die();
+        }
+        catch (Exception $e)
+        {
+            echo "Error en el Proceso: " . $e->getMessage();
+        }
+        die();
     }
 
     public function RegistrarFrecuencia()
