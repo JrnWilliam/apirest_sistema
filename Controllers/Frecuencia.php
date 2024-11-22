@@ -166,7 +166,37 @@
 
     public function MostrarFrecuencias()
     {
-        echo "Listado de Frecuencias";
+        try
+        {
+            $metodo = $_SERVER['REQUEST_METHOD'];
+            $respuesta = [];
+
+            if($metodo == 'GET')
+            {
+                $solicitud = $this->model->getFrecuencias();
+                if(empty($solicitud))
+                {
+                    $respuesta = array('status' => false, 'msg' => 'No se Encontraron Datos');
+                }
+                else
+                {
+                    $respuesta = array('status' => true, 'msg' => 'Datos Encontrados', 'data' => $solicitud);
+                }
+                $codigo = 200;
+            }
+            else
+            {
+                $respuesta = array('status' => false, 'msg' => 'Error en la Solicitud ' .$metodo);
+                $codigo = 400;
+            }
+            JSONRespuesta($respuesta,$codigo);
+            die();
+        }
+        catch(Exception $e)
+        {
+            echo "Error en el Proceso " . $e->getMessage();
+        }
+        die();
     }
 
     public function DesactivarFrecuencia($idfrecuencia)
