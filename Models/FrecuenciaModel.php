@@ -57,5 +57,12 @@
         return false;
       }
     }
+
+    public function getFrecuencias()
+    {
+      $sql = "SELECT idfrecuencia, frecuencia, DATE_FORMAT(fechacreacion, '%d/%m/%Y') as fecharegistro FROM frecuencia WHERE estatus = 1 ORDER BY idfrecuencia DESC";
+      $solicitud = $this->SeleccionarRegistros($sql);
+      return $solicitud;
+    }
   }  
 ?>
