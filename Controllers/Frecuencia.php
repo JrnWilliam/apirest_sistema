@@ -24,9 +24,14 @@
                 $solicitud = $this->model->getFrecuencia($idfrecuencia);
                 if(empty($solicitud))
                 {
-                    $respuesta = array('status' => false, 'msg' => 'Registro No Encontrada');
+                    $respuesta = array('status' => false, 'msg' => 'Registro No Encontrado');
+                    $codigo = 400;
                 }
-                $codigo = 200;
+                else
+                {
+                    $respuesta = array('status' => true, 'msg' => 'Frecuencia Obtenida Correctamente', 'data' => $solicitud);
+                    $codigo = 200;
+                }
             }
             else
             {
