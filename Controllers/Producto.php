@@ -267,14 +267,12 @@
                         if($solicitud)
                         {
                             $respuesta = array('status' => true, 'msg' => 'Producto Desactivado');
-                            $codigo = 200;
                         }
                         else
                         {
                             $respuesta = array('status' => false, 'msg' => 'El Producto no Existe o ya Esta Inactivo ');
-                            $codigo = 200;
                         }
-
+                        $codigo = 200;
                     }
                 }
                 else
