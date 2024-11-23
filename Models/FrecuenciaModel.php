@@ -64,5 +64,21 @@
       $solicitud = $this->SeleccionarRegistros($sql);
       return $solicitud;
     }
+
+    public function desactivarFrecuencia(int $idfrecuencia)
+    {
+      $this->intidFrecuencia = $idfrecuencia;
+      $sql = "UPDATE frecuencia SET estatus = :est WHERE idfrecuencia = :id";
+      $parametro = array(":id" => $this->intidFrecuencia, ":est" => 0);
+      $solicitud = $this->ActualizarRegistro($sql,$parametro);
+      if(strpos($solicitud,"Error") !== false)
+      {
+        return false;
+      }
+      else
+      {
+        return true;
+      }
+    }
   }  
 ?>
