@@ -201,7 +201,56 @@
 
     public function DesactivarFrecuencia($idfrecuencia)
     {
-        echo "Frecuencia Desactivada " . $idfrecuencia;
+        try
+        {
+            $metodo = $_SERVER['REQUEST_METHOD'];
+            $respuesta = [];
+
+            if($metodo == "PATCH")
+            {
+                if(empty($idfrecuencia) OR !is_numeric($idfrecuencia))
+                {
+                    $respuesta  = array('status' => false, 'msg' => 'Error en los Parametros');
+                    JSONRespuesta($respuesta,400);
+                    die();
+                }
+                $buscarFrecuencia = $this->model->getFrecuencia($idfrecuencia);
+                
+                if(empty($buscarFrecuencia))
+                {
+                    $respuesta = array('status' => false, 'msg' => 'La Frecuencia no Existe o ya fue Desactivada');
+                    JSONRespuesta($respuesta,404);
+                    die();
+                }
+                else
+                {
+                    $solicitudDesactivar = $this->model->desactivarFrecuencia($idfrecuencia);
+
+                    if($solicitudDesactivar)
+                    {
+                        $respuesta = array('status' => true, 'msg' => 'Frecuencia Desactivada Correctamente');
+                        $codigo = 200;
+                    }
+                    else
+                    {
+                        $respuesta = array('status' => false, 'msg' => 'No es Posible Desactivar esta Frecuencia');
+                        $codigo = 500;
+                    }
+                }
+            }
+            else
+            {
+                $respuesta = array('status' => false, 'msg' => 'Error en la Solicitud ' . $metodo);
+                $codigo = 405;
+            }
+            JSONRespuesta($respuesta,$codigo);
+            die();
+        }
+        catch (Exception $e)
+        {
+            echo "Error en el Proceso " . $e->getMessage();
+        }
+        die();
     }
   }  
 ?>
