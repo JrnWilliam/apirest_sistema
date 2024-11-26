@@ -16,7 +16,7 @@
             $this->intTipoMovimiento = $tipomovimiento;
             $this->strDescripcion = $descripcion;
 
-            $sql = "SELECT *FROM tipo_movimiento WHERE movimiento = : mov AND estatus = :sts";
+            $sql = "SELECT *FROM tipo_movimiento WHERE movimiento = :mov AND estatus = :sts";
             $parametro = array(":mov" => $this->strMovimiento, ":sts" => 1);
             $solicitud = $this->SeleccionarUnRegistro($sql,$parametro);
             if(empty($solicitud))
