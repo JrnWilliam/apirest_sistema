@@ -38,12 +38,23 @@
                 $tipomovimiento = ucwords(LimpiarCadena($_POST['tipomovimiento']));
                 $descripcion = ucwords(LimpiarCadena($_POST['descripcion']));
                 
-                $codigo = 200;
+                $solicitud = $this->model->setTipoMovimiento($movimiento, $tipomovimiento, $descripcion);
+                if($solicitud > 0)
+                {
+                    $arrmovimiento = array('idtipomovimiento' => $solicitud, 'movimiento' => $movimiento, 'tipomovimiento' => $tipomovimiento, 'descripcion' => $descripcion);
+                    $respuesta = array('status' => true, 'msg' => 'Registro Guardado Correctamente', 'data' => $arrmovimiento);
+                    $codigo = 200;
+                }
+                else
+                {
+                    $respuesta = array('status' => false, 'msg' => 'Este Tipo de Movimiento ya Existe');
+                    $codigo = 405;
+                }
             }
             else
             {
                 $respuesta = array('status' => false, 'msg' => 'Error en la Solicitud ' . $metodo);
-                $codigo = 405;
+                $codigo = 400;
             }
             JSONRespuesta($respuesta,$codigo);
             die();
