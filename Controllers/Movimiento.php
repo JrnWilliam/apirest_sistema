@@ -66,9 +66,27 @@
         die();
     }
 
-    public function TiposMovimiento()
+    public function MostrarTiposMovimiento()
     {
-        echo "Mostrar los Tipos de Movimiento";
+        try
+        {
+            $metodo = $_SERVER['REQUEST_METHOD'];
+            $respuesta = [];
+
+            if($metodo == "GET")
+            {
+
+            }
+            else
+            {
+                
+            }
+        }
+        catch(Exception $e)
+        {
+            echo "Error en el Proceso " . $e->getMessage();
+        }
+        die();
     }
   }  
 ?>
