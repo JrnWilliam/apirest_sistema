@@ -31,5 +31,12 @@
                 return false;
             }
         }
+
+        public function getTipoMovimientos()
+        {
+            $sql = "SELECT idtipomovimiento, movimiento, tipomovimiento, descripcion FROM tipo_movimiento WHERE estatus = 1";
+            $solicitud = $this->SeleccionarRegistros($sql);
+            return $solicitud;
+        }
     }
 ?>
