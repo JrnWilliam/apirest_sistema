@@ -34,7 +34,7 @@
 
         public function getTipoMovimientos()
         {
-            $sql = "SELECT idtipomovimiento, movimiento, tipomovimiento, descripcion FROM tipo_movimiento WHERE estatus = 1";
+            $sql = "SELECT idtipomovimiento, movimiento, tipomovimiento, descripcion FROM tipo_movimiento WHERE estatus = 1 ORDER BY idtipomovimiento DESC";
             $solicitud = $this->SeleccionarRegistros($sql);
             return $solicitud;
         }
