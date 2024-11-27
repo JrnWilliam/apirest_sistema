@@ -75,12 +75,26 @@
 
             if($metodo == "GET")
             {
+                $solicitud = $this->model->getTipoMovimientos();
 
+                if(empty($solicitud))
+                {
+                    $respuesta = array('status' => false, 'msg' => 'No hay Datos a Mostrar');
+                    $codigo = 404;
+                }
+                else
+                {
+                    $respuesta = array('status' => true, 'msg' => 'Datos Encontrados', 'Data' => $solicitud);
+                    $codigo = 200;
+                }
             }
             else
             {
-                
+                $respuesta = array('status' => false, 'msg' => 'Error en la Solicitud '. $metodo);
+                $codigo = 400;
             }
+            JSONRespuesta($respuesta,$codigo);
+            die();
         }
         catch(Exception $e)
         {
