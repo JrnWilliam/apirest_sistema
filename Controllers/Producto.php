@@ -131,7 +131,7 @@
                     $solicitud = $this->model->getProductos();
                     if(empty($solicitud))
                     {
-                        $respuesta = array('status' => true, 'msg' => 'No hay Datos Para Mostrar');
+                        $respuesta = array('status' => false, 'msg' => 'No hay Datos Para Mostrar');
                     }
                     else
                     {
